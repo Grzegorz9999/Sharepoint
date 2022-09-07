@@ -14,13 +14,13 @@
     <section id="stats" class="stats">
       <div class="container container--85">
         <div class="stats--item">
-          <em>10</em>
+          <em>{{ quantity }}</em>
           <h3>Oddanych worków</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum tempora!</p>
         </div>
 
         <div class="stats--item">
-          <em>5</em>
+          <em>{{ institution }}</em>
           <h3>Wspartych organizacji</h3>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas quam.</p>
         </div>
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <a href="#" class="btn btn--large">Załóż konto</a>
+      <a href="/register" class="btn btn--large">Załóż konto</a>
     </section>
 
     <section id="about-us" class="about-us">
@@ -78,17 +78,23 @@
       <!-- SLIDE 1 -->
       <div class="help--slides active" data-id="1">
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
-
+        {% for foundation in foundations %}
         <ul class="help--slides-items">
           <li>
             <div class="col">
-              <div class="title">Fundacja "Dbam o Zdrowie"</div>
-              <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
+              <div class="title">Fundacja "{{ foundation.name }}"</div>
+              <div class="subtitle">Cel i misja: {{ foundation.description }}</div>
             </div>
 
-            <div class="col"><div class="text">ubrania, jedzenie, sprzęt AGD, meble, zabawki</div></div>
+            <div class="col"><div class="text">
+                {% if categories %}
+                    {% for category in categories %}
+                        {{ category.name }}
+                    {% endfor %}
+                {% endif %}
+            </div></div>
           </li>
-
+<!--
           <li>
             <div class="col">
               <div class="title">Fundacja “Dla dzieci"</div>
@@ -105,7 +111,7 @@
             </div>
 
             <div class="col"><div class="text">ubrania, jedzenie, ciepłe koce</div></div>
-          </li>
+          </li>-->
         </ul>
         <!-- Pagination
         <ul class="help--slides-pagination">
@@ -114,6 +120,7 @@
           <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
         </ul>
         -->
+        {% endfor %}
       </div>
 
 

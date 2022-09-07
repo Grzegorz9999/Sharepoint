@@ -5,6 +5,9 @@ class Category(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64)
 
+    def __str__(self):
+        return self.name
+
 TYPE = (
     (1, "Foundation"),
     (2, "Non governmental organisation"),
@@ -17,13 +20,16 @@ class Institution(models.Model):
     type = models.IntegerField(choices=TYPE, default=1)
     categories = models.ManyToManyField(Category)
 
+    def __str__(self):
+        return self.name
+
 class Donation(models.Model):
     id = models.AutoField(primary_key=True)
-    quantitiy = models.IntegerField()
+    quantity = models.IntegerField()
     categories = models.ManyToManyField(Category)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
     address = models.CharField(max_length=256)
-    phone_number = models.IntegerField()
+    phone_number = models.CharField(max_length=12)
     city = models.CharField(max_length=64)
     zip_code = models.CharField(max_length=64)
     pick_up_date = models.DateField()
