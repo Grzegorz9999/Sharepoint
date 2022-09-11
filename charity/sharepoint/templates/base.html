@@ -13,8 +13,12 @@
     <header class="header--main-page">
       <nav class="container container--70">
         <ul class="nav--actions">
-          <li><a href="/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
-          <li><a href="/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+          {% if user.is_authenticated %}
+            <pre>Witaj {{ user.username }} <a href="{% url 'logout' %}">wyloguj</a></pre>
+          {% else %}
+            <li><a href="/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+            <li><a href="/register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+          {% endif %}
         </ul>
 
         <ul>
@@ -22,10 +26,21 @@
           <li><a href="/#steps" class="btn btn--without-border">O co chodzi?</a></li>
           <li><a href="/#about-us" class="btn btn--without-border">O nas</a></li>
           <li><a href="/#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+          {% if user.is_authenticated %}
           <li><a href="/adddonation/#form--steps" class="btn btn--without-border">Przekaż dary</a></li>
+          {% else %}
+          <li><a href="/login" class="btn btn--without-border">Przekaż dary</a></li>
+          {% endif %}
           <li><a href="/#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
       </nav>
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
 {% block content %}
 
 {% endblock %}

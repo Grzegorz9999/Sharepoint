@@ -87,11 +87,9 @@
             </div>
 
             <div class="col"><div class="text">
-                {% if categories %}
-                    {% for category in categories %}
-                        {{ category.name }}
+                    {% for category in foundation.categories.all %}
+                        {{ category }}
                     {% endfor %}
-                {% endif %}
             </div></div>
           </li>
 <!--
@@ -120,27 +118,32 @@
           <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
         </ul>
         -->
-        {% endfor %}
+      {% endfor %}
       </div>
 
 
       <!-- SLIDE 2 -->
       <div class="help--slides" data-id="2">
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic officiis mollitia dolor, neque aspernatur accusamus debitis. Ducimus, officia. Quia, sunt illum! Non iste placeat ab ipsum alias
-          quos suscipit corporis!
+          W naszej bazie znajdziesz listę zweryfikowanych organizacji pozarządowych, z którymi współpracujemy.
+          Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.
         </p>
+        {% for non_governmental in non_governmentals %}
         <ul class="help--slides-items">
           <li>
             <div class="col">
-              <div class="title">Organizacja 1</div>
-              <div class="subtitle">Lorem ipsum dolor sit amet consectetur.</div>
+              <div class="title">Organizacja "{{ non_governmental.name }}"</div>
+              <div class="subtitle">Cel i misja: {{ non_governmental.description }}</div>
             </div>
 
-            <div class="col"><div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div></div>
+            <div class="col"><div class="text">
+                {% for category in non_governmental.categories.all %}
+                        {{ category }}
+                {% endfor %}
+            </div></div>
           </li>
 
-          <li>
+          <!--<li>
             <div class="col">
               <div class="title">Organizacja 2</div>
               <div class="subtitle">Lorem ipsum dolor sit amet consectetur.</div>
@@ -165,9 +168,9 @@
             </div>
 
             <div class="col"><div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div></div>
-          </li>
+          </li>-->
         </ul>
-
+        {% endfor %}
         <!-- Pagination
         <ul class="help--slides-pagination">
           <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
@@ -181,27 +184,33 @@
 
       <!-- SLIDE 3 -->
       <div class="help--slides" data-id="3">
-        <p>Lorem ipsum dolor sit amet, his ocurreret persequeris ea, ad utinam laudem duo. Verterem adipisci partiendo eos ne, ea his reque quaeque recteque, ne quo lobortis intellegam.</p>
+        <p>W naszej bazie znajdziesz listę zweryfikowanych lokalnych zbiórek, z którymi współpracujemy.
+          Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
+          {% for local_raise in local_raises %}
         <ul class="help--slides-items">
           <li>
             <div class="col">
-              <div class="title">Lokalna zbiórka 1</div>
-              <div class="subtitle">Lorem ipsum dolor sit amet consectetur.</div>
+              <div class="title">Organizacja "{{ local_raise.name }}"</div>
+              <div class="subtitle">Cel i misja: {{ local_raise.description }}</div>
             </div>
 
-            <div class="col"><div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div></div>
+            <div class="col"><div class="text">
+                {% for category in local_raise.categories.all %}
+                        {{ category }}
+                {% endfor %}
+            </div></div>
           </li>
 
-          <li>
+          <!--<li>
             <div class="col">
               <div class="title">Lokalna zbiórka 2</div>
               <div class="subtitle">Lorem ipsum dolor sit amet consectetur.</div>
             </div>
 
             <div class="col"><div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div></div>
-          </li>
+          </li>-->
         </ul>
-
+        {% endfor %}
         <!-- Pagination
         <ul class="help--slides-pagination">
           <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>

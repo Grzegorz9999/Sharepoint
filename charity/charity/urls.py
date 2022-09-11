@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from sharepoint.views import LandingPage, AddDonation, Login, Register, Base
+from sharepoint.views import LandingPage, AddDonation, Login, register_user, Base, Logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPage.as_view(), name='index'),
     path('adddonation/', AddDonation.as_view(), name='add-donation'),
     path('login/', Login.as_view(), name='login'),
-    path('register/', Register.as_view(), name='register'),
+    path('logout/', Logout.as_view(), name='logout'),
+    path('register/', register_user, name='register'),
     path('base/', Base.as_view(), name='base'),
 ]
