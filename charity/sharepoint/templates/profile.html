@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="login-page">
+      <h2>Profil</h2>
+        <div class="form-group" style="margin-left: 600px;">
+            <ul>Imię: {{ user.first_name }}</ul>
+            <ul>Nazwisko: {{ user.last_name }}</ul>
+            <ul>Adres mailowy: {{ user.email }}</ul>
+            <ul>Wsparte instytucje</ul>
+                {% for donation in donations %}
+                    <ul>Instytucja: {{ donation.institution }}</ul>
+                    <li>Ilość worków: {{ donation.quantity }}</li>
+                    {% for category in donation.categories.all %}
+                    <li>{{ category }}</li>
+                    {% endfor %}
+                    <li>Data odbioru: {{ donation.pick_up_date }}</li>
+                {% endfor %}
+        </div>
+
+    </section>
+{% endblock %}
