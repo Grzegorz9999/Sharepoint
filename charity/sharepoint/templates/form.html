@@ -145,25 +145,27 @@
 
 
 
-          <!-- STEP 4 -->
+          <!-- STEP 3 -->
           <div data-step="3">
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
-
+            {% for institution_form in institution_forms %}
             <div class="form-group form-group--checkbox">
               <label>
+                <script>
+                  var institution_forms = {{ institution_forms }};
+                </script>
                 <input type="radio" name="organization" value="old" />
                 <span class="checkbox radio"></span>
                 <span class="description">
-                  <div class="title">Fundacja “Bez domu”</div>
+                  <div class="title">{{ institution_form.name }}</div>
                   <div class="subtitle">
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
+                    Cel i misja: {{ institution_form.description }}
                   </div>
                 </span>
               </label>
             </div>
-
-            <div class="form-group form-group--checkbox">
+            {% endfor %}
+            <!--<div class="form-group form-group--checkbox">
               <label>
                 <input type="radio" name="organization" value="old" />
                 <span class="checkbox radio"></span>
@@ -175,7 +177,7 @@
                   </div>
                 </span>
               </label>
-            </div>
+            </div>-->
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
@@ -183,7 +185,7 @@
             </div>
           </div>
 
-          <!-- STEP 5 -->
+          <!-- STEP 4 -->
           <div data-step="4">
             <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
 

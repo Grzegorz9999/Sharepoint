@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.views import View
-from .models import Donation, Institution, Category
+from .models import Donation, Institution, Category, User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate, logout, login
 from .forms import MyLoginForm
 from django.http import HttpResponseRedirect
 
@@ -32,7 +32,10 @@ class LandingPage(View):
 class AddDonation(View):
     def get(self, request):
         category_forms = Category.objects.all()
-        return render(request, "form.html", {'category_forms': category_forms})
+        institution_forms = Institution.objects.all()
+        return render(request, "form.html", {'category_forms': category_forms,
+                                             'institution_forms': institution_forms,
+                                             })
 
 def register_user(request):
     if request.method == 'POST':
@@ -68,10 +71,11 @@ class Login(View):
     def post(self, request):
         form = MyLoginForm(request.POST)
         if form.is_valid():
-            login = form.cleaned_data['login']
+            username = form.cleaned_data['login']
             password = form.cleaned_data['password']
-            user = authenticate(username=login, password=password)
+            user = authenticate(username=username, password=password)
             if user is not None:
+                login(request, user)
                 return render(request, 'index.html', {"form": form})
             else:
                 return render(request, 'register.html', {"form": form})
@@ -88,3 +92,11 @@ class Register(View):
 class Base(View):
     def get(self, request):
         return render(request, "base.html")
+
+class Profile(View):
+    def get(self, request):
+        username = None
+        if request.user.is_authenticated:
+            username = request.user.id
+        donations = Donation.objects.filter(user=username)
+        return render(request, "profile.html", {'donations': donations})

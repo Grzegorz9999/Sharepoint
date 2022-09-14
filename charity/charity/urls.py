@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from sharepoint.views import LandingPage, AddDonation, Login, register_user, Base, Logout
+from sharepoint.views import LandingPage, AddDonation, Login, register_user, Base, Logout, Profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +25,5 @@ urlpatterns = [
     path('logout/', Logout.as_view(), name='logout'),
     path('register/', register_user, name='register'),
     path('base/', Base.as_view(), name='base'),
+    path('profile/', Profile.as_view(), name='profile'),
 ]
