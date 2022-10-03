@@ -78,7 +78,7 @@
       <!-- SLIDE 1 -->
       <div class="help--slides active" data-id="1">
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
-        {% for foundation in foundations %}
+        {% for foundation in sites.object_list %}
         <ul class="help--slides-items">
           <li>
             <div class="col">
@@ -111,14 +111,23 @@
             <div class="col"><div class="text">ubrania, jedzenie, ciepłe koce</div></div>
           </li>-->
         </ul>
-        <!-- Pagination
-        <ul class="help--slides-pagination">
-          <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
-          <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
-        </ul>
-        -->
+
+
       {% endfor %}
+          <!--Pagination-->
+        <ul class="help--slides-pagination">
+                {% if sites.has_previous %}
+                <li><a href="?page={{ sites.previous_page_number }}">Poprzednia</a></li>
+                    <!-- <a href="?page=1">1</a> -->
+                <li><a href="?page={{ sites.previous_page_number }}">{{ sites.previous_page_number }}</a></li>
+                {% endif %}
+                <li><a href="?page={{ sites.number }}">{{ sites.number }}</a></li>
+                {% if sites.has_next %}
+                <li><a href="?page={{ sites.next_page_number }}">{{ sites.next_page_number }}</a></li>
+                    <!-- <a href="?page={{ sites.paginator.num_pages }}">{{ sites.paginator.num_pages }}</a> -->
+                <li><a href="?page={{ sites.next_page_number }}">Następna</a></li>
+                {% endif %}
+        </ul>
       </div>
 
 

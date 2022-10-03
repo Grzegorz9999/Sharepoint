@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, logout, login
 from .forms import MyLoginForm
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator
 
 class LandingPage(View):
     def get(self, request):
@@ -20,6 +21,9 @@ class LandingPage(View):
         non_governmentals = Institution.objects.filter(type=2)
         local_raises = Institution.objects.filter(type=3)
         categories = foundation.categories.all()
+        institutions_paginator = Paginator(foundations, 1)
+        page = request.GET.get('page')
+        sites = institutions_paginator.get_page(page)
         return render(request, "index.html", {'quantity': quantity,
                                               'institution': institution,
                                               'foundation': foundation,
@@ -27,6 +31,7 @@ class LandingPage(View):
                                               "non_governmentals": non_governmentals,
                                               "local_raises": local_raises,
                                               'categories': categories,
+                                              "sites": sites,
                                               })
 
 class AddDonation(View):
